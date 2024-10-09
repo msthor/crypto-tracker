@@ -42,7 +42,7 @@ The Crypto Tracker project is a Node.js application that fetches and stores real
    - Create a `.env` file in the root of the project and add the following:
      ```
      MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/crypto-tracker?retryWrites=true&w=majority
-     PORT=5000
+     PORT=3000
      ```
    - Replace `<username>` and `<password>` with your MongoDB credentials.
 
@@ -84,4 +84,4 @@ To run the application locally, use the following command:
 ```bash
 node index.js
 ```
-The server will start on the specified port (default: `5000`).
+The server will start on the specified port (default: `3000`).

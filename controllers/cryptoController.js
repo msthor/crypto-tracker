@@ -1,43 +1,55 @@
 const Crypto = require('../models/Crypto');
 
-// Get latest stats
-exports.getStats = async (req, res) => {
-    const { coin } = req.query;
+async function getCryptoStats(req, res) {
+  const { coin } = req.query;
 
-    try {
-        const latestRecord = await Crypto.findOne({ coin }).sort({ timestamp: -1 });
+  if (!coin) {
+    return res.status(400).json({ error: 'Coin parameter is required' });
+  }
 
-        if (!latestRecord) {
-            return res.status(404).json({ message: 'No data found for the requested coin.' });
-        }
+  try {
+    const latestData = await Crypto.findOne({ coin }).sort({ timestamp: -1 });
 
-        res.json({
-            price: latestRecord.price,
-            marketCap: latestRecord.marketCap,
-            "24hChange": latestRecord.change24h,
-        });
-    } catch (err) {
-        res.status(500).json({ error: 'Server error' });
+    if (!latestData) {
+      return res.status(404).json({ error: 'Crypto data not found' });
     }
-};
 
-// Get standard deviation
-exports.getDeviation = async (req, res) => {
-    const { coin } = req.query;
+    res.json({
+      price: latestData.price,
+      marketCap: latestData.marketCap,
+      "24hChange": latestData.change24h,
+    });
+  } catch (error) {
+    res.status(500).json({ error: 'Server error' });
+  }
+}
 
-    try {
-        const records = await Crypto.find({ coin }).sort({ timestamp: -1 }).limit(100);
-        if (records.length < 1) {
-            return res.status(404).json({ message: 'Insufficient data for the requested coin.' });
-        }
+async function getCryptoDeviation(req, res) {
+  const { coin } = req.query;
 
-        const prices = records.map(record => record.price);
-        const mean = prices.reduce((a, b) => a + b, 0) / prices.length;
-        const variance = prices.reduce((a, b) => a + Math.pow(b - mean, 2), 0) / prices.length;
-        const standardDeviation = Math.sqrt(variance).toFixed(2);
+  if (!coin) {
+    return res.status(400).json({ error: 'Coin parameter is required' });
+  }
 
-        res.json({ deviation: parseFloat(standardDeviation) });
-    } catch (err) {
-        res.status(500).json({ error: 'Server error' });
+  try {
+    const data = await Crypto.find({ coin }).sort({ timestamp: -1 }).limit(100);
+
+    if (data.length === 0) {
+      return res.status(404).json({ error: 'Crypto data not found' });
     }
-};
+
+    const prices = data.map(item => item.price);
+    const mean = prices.reduce((sum, price) => sum + price, 0) / prices.length;
+    const squaredDifferences = prices.map(price => Math.pow(price - mean, 2));
+    const variance = squaredDifferences.reduce((sum, diff) => sum + diff, 0) / prices.length;
+    const standardDeviation = Math.sqrt(variance);
+
+    res.json({
+      deviation: parseFloat(standardDeviation.toFixed(2)),
+    });
+  } catch (error) {
+    res.status(500).json({ error: 'Server error' });
+  }
+}
+
+module.exports = { getCryptoStats, getCryptoDeviation };
