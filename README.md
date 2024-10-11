@@ -25,7 +25,7 @@ The Crypto Tracker project is a Node.js application that fetches and stores real
 ## Setup and Installation
 1. **Clone the Repository**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/shubhu121/crypto-tracker.git
    cd crypto-tracker
    ```
 
