@@ -1,7 +1,7 @@
 {
   "name": "crypto-tracker",
   "version": "1.0.0",
-  "description": "",
+  "description": "1. [Project Overview](#project-overview)\r 2. [Technologies Used](#technologies-used)\r 3. [Setup and Installation](#setup-and-installation)\r 4. [Environment Variables](#environment-variables)\r 5. [API Endpoints](#api-endpoints)\r    - [1. Fetch Cryptocurrency Data](#1-fetch-cryptocurrency-data)\r    - [2. Get Latest Stats](#2-get-latest-stats)\r    - [3. Calculate Price Deviation](#3-calculate-price-deviation)\r 6. [Running the Application](#running-the-application)",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,10 +10,21 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "axios": "^1.7.7",
+    "axios": "^1.10.0",
     "dotenv": "^16.4.5",
-    "express": "^4.21.1",
-    "mongoose": "^8.7.0",
+    "express": "^4.21.2",
+    "mongoose": "^8.16.1",
     "node-cron": "^3.0.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shubhu121/crypto-tracker.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shubhu121/crypto-tracker/issues"
+  },
+  "homepage": "https://github.com/shubhu121/crypto-tracker#readme",
+  "devDependencies": {
+    "nodemon": "^3.1.10"
   }
 }

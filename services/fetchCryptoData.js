@@ -1,7 +1,7 @@
 const axios = require('axios');
 const Crypto = require('../models/Crypto');
 
-const COIN_IDS = ['bitcoin', 'matic-network', 'ethereum'];
+const COIN_IDS = ['bitcoin', 'ethereum', 'matic-network'];
 
 async function fetchCryptoData() {
   try {
@@ -24,9 +24,9 @@ async function fetchCryptoData() {
       });
     }
 
-    console.log('Crypto data fetched and stored successfully');
+    console.log(' Crypto data fetched and stored successfully');
   } catch (error) {
-    console.error('Error fetching crypto data:', error.message);
+    console.error(' Error fetching crypto data:', error.message);
   }
 }
 
